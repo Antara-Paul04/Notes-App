@@ -19,6 +19,12 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void _deleteNote(String id){
+    setState((){
+      notesList.removeWhere((item)=> item.id==id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +69,7 @@ class _HomeState extends State<Home> {
               itemCount: notesList.length,
               itemBuilder: (context, index) {
                 Note note = notesList[index];
-                return NoteTile(note: note);
+                return NoteTile(note: note, deleteNoteCallback: _deleteNote,);
               },
             ),
           ),

@@ -4,8 +4,9 @@ import 'package:notes_app/pages/addNote.dart';
 
 class NoteTile extends StatelessWidget {
   final Note note;
+  final Function(String) deleteNoteCallback; // Callback function to delete a note
 
-  const NoteTile({Key? key, required this.note}) : super(key: key);
+  const NoteTile({Key? key, required this.note, required this.deleteNoteCallback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,16 @@ class NoteTile extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                child: Icon(Icons.arrow_forward_ios_rounded),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => deleteNoteCallback(note.id!),
+                      icon: Icon(Icons.delete_outline),
+                    ),
+                    SizedBox(width: 15),
+                    Icon(Icons.arrow_forward_ios_rounded),
+                  ],
+                ),
               ),
             ],
           ),
