@@ -11,9 +11,12 @@ class AddNotes extends StatefulWidget {
 }
 
 class _AddNotesState extends State<AddNotes> {
+  TextEditingController titlecontroller= TextEditingController();
+  TextEditingController textcontroller= TextEditingController();
+
   void _addNote() {
     String id = Uuid().v4();
-    Note newNote = Note(id: id, notes:'note 6');
+    Note newNote = Note(id: id, title: titlecontroller.text, notetext:textcontroller.text, isSaved: true);
     Navigator.pop(context, newNote);
   }
 
@@ -29,6 +32,7 @@ class _AddNotesState extends State<AddNotes> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
             child: TextField(
+              controller: titlecontroller,
               decoration: InputDecoration(
                 hintText: 'Title',
                 hintStyle: TextStyle(
@@ -45,6 +49,7 @@ class _AddNotesState extends State<AddNotes> {
                 Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: TextField(
+                    controller: textcontroller,
                     decoration: InputDecoration(
                       hintText: 'Add your notes here',
                       hintStyle: TextStyle(

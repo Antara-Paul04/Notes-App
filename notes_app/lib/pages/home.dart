@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Note> notesList = noteList(); // Initialize with existing notes
+  List<Note> notesList = noteList();
   final Uuid uuid = Uuid();
 
   void _addNoteToList(Note newNote) {

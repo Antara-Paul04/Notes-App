@@ -33,7 +33,7 @@ class NoteTile extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 20, 10, 20),
-                child: Text(note.notes!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                child: Text(note.title!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
