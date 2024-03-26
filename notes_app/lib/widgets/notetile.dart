@@ -9,6 +9,10 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String truncatedTitle = note.title!.length > 10
+        ? note.title!.substring(0, 10) + '...'
+        : note.title!;
+
     return Container(
       padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: ListTile(
@@ -33,7 +37,10 @@ class NoteTile extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 20, 10, 20),
-                child: Text(note.title!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                child: Text(
+                  truncatedTitle,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
