@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/models/noteWidget.dart';
+import 'package:notes_app/pages/home.dart';
 import 'package:notes_app/widgets/notetile.dart';
+import 'package:notes_app/models/noteWidget.dart';
+import 'package:uuid/uuid.dart';
+
 
 class AddNotes extends StatefulWidget {
   @override
@@ -8,12 +11,18 @@ class AddNotes extends StatefulWidget {
 }
 
 class _AddNotesState extends State<AddNotes> {
+  void _addNote() {
+    String id = Uuid().v4();
+    Note newNote = Note(id: id, notes:'note 6');
+    Navigator.pop(context, newNote);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        toolbarHeight: 30,
+        toolbarHeight: 50,
       ),
       body: Column(
         children: [
@@ -30,10 +39,10 @@ class _AddNotesState extends State<AddNotes> {
               ),
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
+          Expanded(
+            child: Stack(
+              children: [
+                Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: TextField(
                     decoration: InputDecoration(
@@ -49,11 +58,22 @@ class _AddNotesState extends State<AddNotes> {
                     maxLines: null,
                   ),
                 ),
-              ),
-            ],
+                Positioned(
+                  bottom: 30,
+                  right: 30,
+                  child: FloatingActionButton(
+                    elevation: 0,
+                    backgroundColor: Color(0xFFC0D0F1),
+                    onPressed: _addNote,
+                    child: Icon(Icons.save_outlined),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
+
