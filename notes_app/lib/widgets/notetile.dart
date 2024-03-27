@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/noteWidget.dart';
-import 'package:notes_app/pages/addNote.dart'; 
+import '../pages/savedNote.dart';
 
 class NoteTile extends StatelessWidget {
   final Note note;
-  final Function(String) deleteNoteCallback; // Callback function to delete a note
+  final Function(String) deleteNoteCallback;
 
   const NoteTile({Key? key, required this.note, required this.deleteNoteCallback}) : super(key: key);
 
@@ -20,7 +20,7 @@ class NoteTile extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddNotes()),
+            MaterialPageRoute(builder: (context) => SavedNote(title: note.title.toString(), notetext: note.notetext.toString())),
           );
         },
         tileColor: Colors.transparent,

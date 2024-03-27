@@ -3,6 +3,7 @@ import 'package:notes_app/pages/home.dart';
 import 'package:notes_app/widgets/notetile.dart';
 import 'package:notes_app/models/noteWidget.dart';
 import 'package:uuid/uuid.dart';
+import 'package:notes_app/pages/savedNote.dart';
 
 
 class AddNotes extends StatefulWidget {
@@ -69,7 +70,10 @@ class _AddNotesState extends State<AddNotes> {
                   child: FloatingActionButton(
                     elevation: 0,
                     backgroundColor: Color(0xFFC0D0F1),
-                    onPressed: _addNote,
+                    onPressed:(){
+                       _addNote();
+                       SavedNote(title: titlecontroller.text, notetext: textcontroller.text);
+                    },
                     child: Icon(Icons.save_outlined),
                   ),
                 ),

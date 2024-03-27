@@ -19,10 +19,33 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _deleteNote(String id){
-    setState((){
-      notesList.removeWhere((item)=> item.id==id);
-    });
+  void _deleteNote(String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Deletion"),
+          content: Text("Are you sure you want to delete this note?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  notesList.removeWhere((item) => item.id == id);
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text("Delete"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
