@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/pages/homeNote.dart';
 import 'package:notes_app/models/todoWidget.dart';
 import 'package:notes_app/widgets/listitem.dart';
 
 class Homepage extends StatefulWidget {
+  String username;
+  Homepage({required this.username});
   @override
   State<Homepage> createState() => _HomepageState();
 }
@@ -27,7 +30,7 @@ class _HomepageState extends State<Homepage> {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
             ),
             Text(
-              'Username',
+              widget.username,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
@@ -54,11 +57,13 @@ class _HomepageState extends State<Homepage> {
                       ),
                       Spacer(),
                       Container(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFFFE9A64E),),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFC0D0F1),),
                         child: IconButton(
-                                            onPressed:(){
-                        print("Add button pressed");
-                        }, icon: Icon(Icons.add, color: const Color.fromARGB(255, 0, 0, 0) ),),
+                          onPressed:(){
+                            print("Add button pressed");
+                          },
+                          icon: Icon(Icons.add, color: Color.fromARGB(255, 0, 0, 0), size: 30,),
+                        ),
                       ),
                     ],
                   ),
@@ -67,6 +72,46 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
             ),
+            SizedBox(height:20),
+
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
+                },
+                tileColor: Colors.transparent,
+                title: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFC0D0F1), Color.fromARGB(255, 237, 243, 255)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 20, 10, 20),
+                        child: Text('Your Notes',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: Row(
+                          children: [
+                            Icon(Icons.arrow_forward_ios_rounded),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),

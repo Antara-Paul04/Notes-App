@@ -17,12 +17,10 @@ class _TodoItemState extends State<TodoItem> {
       padding: EdgeInsets.fromLTRB(30, 0, 30, 20),
       child: Row(
         children: [
-          Icon(
-            widget.todo.isDone
-                ? Icons.check_box 
-                : Icons.check_box_outline_blank_outlined,
-            color: widget.todo.isDone ? Color(0xFFFFE9A64E) : null,
-          ),
+          widget.todo.isDone?
+          Icon(Icons.check_box, color: Color(0xFFC0D0F1),)
+                : Icon(Icons.check_box_outline_blank_outlined),
+
           SizedBox(width: 10),
           Text(
             widget.todo.task!,
