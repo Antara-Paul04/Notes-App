@@ -1,122 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/models/noteWidget.dart';
-import 'package:notes_app/widgets/notetile.dart';
-import 'package:uuid/uuid.dart';
-import 'addNote.dart';
+import 'package:notes_app/models/todoWidget.dart';
+import 'package:notes_app/widgets/listitem.dart';
 
-class Home extends StatefulWidget {
+class Homepage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomeState extends State<Home> {
-  List<Note> notesList = noteList();
-  final Uuid uuid = Uuid();
-
-  void _addNoteToList(Note newNote) {
-    setState(() {
-      notesList.add(newNote);
-    });
-  }
-
-  void _deleteNote(String id) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Confirm Deletion"),
-          content: Text("Are you sure you want to delete this note?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Cancel"),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  notesList.removeWhere((item) => item.id == id);
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text("Delete"),
-            ),
-          ],
-        );
-      },
-    );
-  }
+class _HomepageState extends State<Homepage> {
+  List<Todo> todosList = todos;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        toolbarHeight: 30,
+        toolbarHeight: 50,
       ),
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 30),
-            child: Container(
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(30, 10, 30, 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Good Morning,',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+            ),
+            Text(
+              'Username',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 30),
+            Container(
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                border: Border.all(color: Color.fromARGB(255, 57, 57, 57)),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 57, 57, 57)),
-                  hintText: 'Search your Notes',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(15),
-                  hintStyle: TextStyle(color: Color.fromARGB(255, 57, 57, 57)),
+                border: Border.all(
+                  width: 1.0,
+                  color: Color.fromARGB(255, 130, 130, 130),
                 ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Things to do',
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFFFE9A64E),),
+                        child: IconButton(
+                                            onPressed:(){
+                        print("Add button pressed");
+                        }, icon: Icon(Icons.add, color: const Color.fromARGB(255, 0, 0, 0) ),),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  for (Todo todo in todosList) TodoItem(todo: todo),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 0, 0, 20),
-            child: Text(
-              'Your Notes',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: notesList.length,
-              itemBuilder: (context, index) {
-                Note note = notesList[index];
-                return NoteTile(note: note, deleteNoteCallback: _deleteNote,);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                elevation: 0,
-                backgroundColor: Color(0xFFC0D0F1),
-                onPressed: () async {
-                  final newNote = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddNotes()),
-                  );
-                  if (newNote != null) {
-                    _addNoteToList(newNote);
-                  }
-                },
-                child: Icon(Icons.add),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

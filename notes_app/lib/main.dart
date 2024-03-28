@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
+import 'pages/homeNote.dart';
 import './pages/addNote.dart';
 
 void main() {
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: Homepage(),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/pages/home.dart';
+import 'package:notes_app/pages/homeNote.dart';
 import 'package:notes_app/widgets/notetile.dart';
 import 'package:notes_app/models/noteWidget.dart';
 import 'package:uuid/uuid.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SavedNote extends StatefulWidget {
   final String title;
@@ -11,6 +12,7 @@ class SavedNote extends StatefulWidget {
 }
 
 class _SavedNoteState extends State<SavedNote> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,27 +20,45 @@ class _SavedNoteState extends State<SavedNote> {
         backgroundColor: Colors.transparent,
         toolbarHeight: 50,
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+      body: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  widget.notetext,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: EdgeInsets.all(30.0),
+              child: FloatingActionButton(
+                backgroundColor: Color(0xFFC0D0F1),
+                elevation: 0,
+                onPressed: () {
+                  print('Edit button pressed');
+                },
+                child: Icon(Icons.edit),
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              widget.notetext,
-              style: TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
