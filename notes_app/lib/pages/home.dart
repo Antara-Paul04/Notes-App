@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/pages/homeNote.dart';
 import 'package:notes_app/models/todoWidget.dart';
 import 'package:notes_app/widgets/listitem.dart';
+import 'package:uuid/uuid.dart';
 
 class Homepage extends StatefulWidget {
   String username;
@@ -12,6 +13,15 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   List<Todo> todosList = todos;
+  final Uuid uuid = Uuid();
+  bool showAddTextField = false;
+
+  void addItem(String task) {
+    String id = uuid.v4();
+    setState(() {
+      todosList.add(Todo(id: id, task: task));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +70,27 @@ class _HomepageState extends State<Homepage> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFC0D0F1),),
                         child: IconButton(
                           onPressed:(){
-                            print("Add button pressed");
+                            setState(() {
+                              showAddTextField = true;
+                            });
                           },
                           icon: Icon(Icons.add, color: Color.fromARGB(255, 0, 0, 0), size: 30,),
                         ),
                       ),
                     ],
                   ),
+                  if(showAddTextField)
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter your task'
+                        ),
+                      onSubmitted: (value) {
+                        addItem(value);
+                        setState(() {
+                          showAddTextField = false;
+                        });
+                      },
+                    ),
                   SizedBox(height: 20),
                   for (Todo todo in todosList) TodoItem(todo: todo),
                 ],
@@ -74,44 +98,44 @@ class _HomepageState extends State<Homepage> {
             ),
             SizedBox(height:20),
 
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
-                },
-                tileColor: Colors.transparent,
-                title: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFFC0D0F1), Color.fromARGB(255, 237, 243, 255)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+              tileColor: Colors.transparent,
+              title: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFC0D0F1), Color.fromARGB(255, 237, 243, 255)],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30, 20, 10, 20),
+                      child: Text('Your Notes',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(30, 20, 10, 20),
-                        child: Text('Your Notes',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: Row(
+                        children: [
+                          Icon(Icons.arrow_forward_ios_rounded),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                        child: Row(
-                          children: [
-                            Icon(Icons.arrow_forward_ios_rounded),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),
