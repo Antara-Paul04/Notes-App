@@ -22,6 +22,11 @@ class _HomepageState extends State<Homepage> {
       todosList.add(Todo(id: id, task: task));
     });
   }
+  void deleteItem(String id){
+    setState(() {
+      todosList.removeWhere((task) => task.id==id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +94,16 @@ class _HomepageState extends State<Homepage> {
                         setState(() {
                           showAddTextField = false;
                         });
+                        deleteItem(value);
                       },
                     ),
                   SizedBox(height: 20),
-                  for (Todo todo in todosList) TodoItem(todo: todo),
+                  for (Todo todo in todosList) TodoItem(
+                    todo: todo,
+                    onDelete: (id) {
+                      deleteItem(id);
+                    },
+                  ),
                 ],
               ),
             ),
